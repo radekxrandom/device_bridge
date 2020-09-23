@@ -8,6 +8,7 @@ const ConnectionInfoContainer = props => {
 			<div className="conQRBox">
 				<p className="qrAdnotation">SCAN TO CONNECT</p>
 				<QRCodeTop connection={props.connection} />
+				<p>{props.connection}</p>
 			</div>
 			<div className="connList">
 				<p>Connected devices</p>

@@ -1,10 +1,11 @@
 import React from "react";
 import SharedFile from "./SharedFile";
+import InputArea from "./InputArea";
 
 const SharedFilesContainer = props => {
 	return (
 		<>
-			<p className="headerText">Shared Files</p>
+			<InputArea socket={props.socket} conID={props.conID} />
 			{props.files
 				.map(el => (
 					<SharedFile

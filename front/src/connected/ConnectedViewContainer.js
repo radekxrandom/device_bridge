@@ -7,16 +7,19 @@ const ConnectedViewContainer = props => {
 	return (
 		<div className="mainWrapper">
 			<div className="leftCol">
-				<LeftContainer
+				{/*<LeftContainer
 					conID={props.connection}
 					devices={props.connectedDevices}
 					socket={props.socket}
-				/>
+				/>*/}
 			</div>
 			<div className="midCol">
 				<SharedFilesContainer
 					files={props.sharedFiles}
 					removeFile={props.removeFile}
+					conID={props.connection}
+					devices={props.connectedDevices}
+					socket={props.socket}
 				/>
 			</div>
 			<div className="rightCol">

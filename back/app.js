@@ -39,7 +39,9 @@ io.on('connection', async (socket) => {
     const userAgent = `${userIP.slice(7)} ${userData}`;
     console.log(userAgent);
     socket.leave(socket.room);
-    const connectionID = uuidv4();
+    const connectionID = uuidv4()
+      .slice(0, 6)
+      .toUpperCase();
     socket.room = connectionID;
     socket.join(connectionID);
     things[connectionID] = [];

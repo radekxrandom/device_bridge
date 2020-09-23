@@ -90,9 +90,9 @@ img.fileContent {
 	text-align: center;
 }
 
-.inputArea > textarea {
-	width: 25vw;
-	height: 25vh;
+.inputArea textarea {
+	width: 95%;
+	height: 6vh;
 	border-color: #568dff;
 	border: none;
 	box-shadow: 0px 0px 3px 2px rgb(0 0 0 / 10%);
@@ -103,15 +103,15 @@ img.fileContent {
 }
 
 .inputArea {
-	height: 40vh;
 	text-align: center;
-	margin-top: 10vh;
+	margin-top: 5vh;
 }
 
 button {
 	height: 2rem;
 	border-radius: 5px;
 	border: none;
+	float: left;
 	width: 5rem;
 	box-shadow: 0px 0px 3px 2px rgb(0 0 0 / 10%);
 }
@@ -122,15 +122,17 @@ button {
 }
 
 .shareBtn {
-	margin-left: 1.5rem;
+	margin-right: 1.5rem;
 	width: 10rem;
 	background: #568dff;
 	color: white;
 }
 
 .btns {
-	margin: 2rem;
-	float: right;
+	margin: 0.5rem;
+	width: 100%;
+	float: left;
+	margin-bottom: 3rem;
 	margin-right: 4rem;
 }
 
@@ -146,4 +148,15 @@ textarea:focus {
 
 textarea:focus {
 	box-shadow: 0px 0px 4px 6px rgb(0 0 0 / 10%);
+}
+
+@media screen and (max-device-width: 800px) {
+	.midCol {
+		width: 80% !important;
+		margin: 3rem;
+		font-size: 0.7rem;
+	}
+	.rightCol {
+		display: none;
+	}
 }

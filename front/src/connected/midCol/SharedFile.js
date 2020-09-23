@@ -3,6 +3,8 @@ import { Trash } from "tabler-icons-react";
 
 const SharedFile = props => {
 	const clsNaem = props.isImg ? "imgFile" : "txtFile";
+	const isUrl = props.text ? props.text.slice(0, 4) === "http" : false;
+
 	return (
 		<>
 			<p className={`${clsNaem} file`}>
@@ -10,7 +12,8 @@ const SharedFile = props => {
 				{/* {props.isImg
 					? (<img className='fileContent' src={props.text} />)
 					: (<span className='fileContent'>{props.text}</span>)} */}
-				<span className="fileContent">{props.text}</span>
+				{isUrl && <a href={props.text}>{props.text}</a>}
+				{!isUrl && <span className="fileContent">{props.text}</span>}
 				<img className="fileContent" src={props.img.src} />
 				<p className="ownerInfor">
 					{/* <span className="fileOwnerAdnotation">Metadata: </span> */}

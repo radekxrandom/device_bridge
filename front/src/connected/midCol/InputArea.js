@@ -16,7 +16,7 @@ const InputArea = props => {
 	const [encodedFiles, setEncodedFiles] = React.useState({});
 
 	const submit = e => {
-		e.preventDefault();
+		//e.preventDefault();
 		const data = {
 			text: msg || false,
 			img: encodedFiles.src ? encodedFiles : false,
@@ -46,11 +46,22 @@ const InputArea = props => {
 		onDrop
 	});
 
+	const handleInput = e => {
+		console.log(e.key);
+		if (e.key === "Enter" && e.ctrlKey === false) {
+			e.preventDefault();
+			console.log("ent");
+			submit();
+			return;
+		}
+	};
+
 	return (
 		<>
 			<div className="inputArea">
 				<textarea
 					placeholder="Text goes here"
+					onKeyPress={handleInput}
 					onChange={e => setMsg(e.target.value)}
 					value={msg}
 				/>
@@ -63,14 +74,14 @@ const InputArea = props => {
 							</div>
 						);
 					})} */}
+					<button className="shareBtn" onClick={submit}>
+						Submit
+					</button>
 					<button className="fileBtn">
 						<div {...getRootProps()}>
 							<input {...getInputProps()} />
 							<span>{filename}</span>
 						</div>
-					</button>
-					<button className="shareBtn" onClick={submit}>
-						Submit
 					</button>
 				</div>
 			</div>
