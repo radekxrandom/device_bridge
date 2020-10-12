@@ -27,12 +27,12 @@ const App = () => {
 	const [connection, setConnection] = React.useState("");
 	const [conUsers, setConUsers] = React.useState([]);
 	const [files, setFiles] = React.useState([]);
-
 	React.useEffect(() => {
+		const urlLength = process.env.NODE_ENV === "production" ? 33 : 25;
 		const browserData = window.navigator.userAgent.split(" ");
 		const os = browserData[1].slice(1);
 
-		const urlID = window.location.href.slice(25);
+		const urlID = window.location.href.slice(urlLength);
 		console.log(urlID);
 		const conID = urlID.length ? urlID : localStorage.getItem("connectionID");
 		//const conID = urlID;
@@ -110,7 +110,7 @@ const App = () => {
 		<div>
 			{/*connection && !conUsers.length && (
 				<DisconnectedViewContainer>
-					<QRCode value={`http://192.168.0.22:3000/${connection}`} />
+					<QRCode value={`${process.env.REACT_APP_FRONT_URL}${connection}`} />
 				</DisconnectedViewContainer>
 			) */}
 			<ConnectedViewContainer

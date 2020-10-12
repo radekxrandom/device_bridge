@@ -7,7 +7,7 @@ const ConnectionInfoContainer = props => {
 		<>
 			<div className="conQRBox">
 				<p className="qrAdnotation">SCAN TO CONNECT</p>
-				<QRCodeTop connection={props.connection} />
+				<QRCodeTop connection={props.connection} thisUrl={props.thisUrl} />
 				<p>{props.connection}</p>
 				<div className="ctrlBtns">
 					<button className="resetBtn" onClick={props.resetConnection}>
