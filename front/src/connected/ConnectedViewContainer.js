@@ -24,6 +24,9 @@ const ConnectedViewContainer = props => {
 			</div>
 			<div className="rightCol">
 				<ConnectionInfoContainer
+					resetConnection={props.resetConnection}
+					deleteSession={props.deleteSession}
+					clearSharedHistory={props.clearSharedHistory}
 					connection={props.connection}
 					devices={props.connectedDevices}
 				/>

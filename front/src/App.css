@@ -4,6 +4,7 @@
 body {
 	background: #fafbfb;
 	font-family: "Raleway", sans-serif;
+	white-space: pre-line;
 }
 
 .qrBox {
@@ -128,6 +129,11 @@ button {
 	color: white;
 }
 
+.resetBtn {
+	float: unset;
+	width: 10rem;
+}
+
 .btns {
 	margin: 0.5rem;
 	width: 100%;
@@ -143,7 +149,16 @@ button:hover {
 button:focus,
 textarea:focus {
 	outline-color: #568dff14;
-	box-shadow: 0px 0px 4px 6px rgb(0 0 0 / 10%);
+	box-shadow: 0px 0px 0px 4px rgb(0 0 0 / 10%);
+}
+
+button:hover {
+	outline-color: #568dff14;
+	box-shadow: 0px 0px 7px 4px rgb(0 0 0 / 10%);
+}
+
+.shareBtn:hover {
+	background: #266cff;
 }
 
 textarea:focus {
@@ -159,4 +174,52 @@ textarea:focus {
 	.rightCol {
 		display: none;
 	}
+}
+
+.ctrlBtns {
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+}
+
+.resetBtn {
+	float: unset;
+	width: 10rem;
+	margin-bottom: 1.5rem;
+	width: 13rem;
+	height: 2.5rem;
+	font-size: 1.2rem;
+	font-family: "Raleway";
+	font-weight: 400;
+	color: #252525;
+}
+
+.files {
+	display: flex;
+	flex-flow: column;
+	margin-top: -0.5rem;
+}
+
+.closeBtn {
+	float: right;
+	margin-bottom: 0.2rem;
+}
+
+.clickable:hover {
+	cursor: pointer;
+	color: #1e96dc;
+}
+
+.header {
+	font-size: 2.5rem;
+	font-weight: 500;
+	color: #212121;
+	border-bottom: 0.1px solid #4c4c4c;
+}
+
+.showForm {
+	position: relative;
+	bottom: 2%;
+	font-size: 1.2rem;
+	margin-left: 1.4rem;
 }

@@ -10,42 +10,42 @@ const toBase64 = file =>
 		reader.onerror = error => reject(error);
 	});
 
+const processFile = async file => {
+	const fileBase64 = await toBase64(file);
+	const processedFile = {
+		name: file.name,
+		src: fileBase64
+	};
+	return processedFile;
+};
+
 const InputArea = props => {
 	const [msg, setMsg] = React.useState("");
 	const [filename, setFilename] = React.useState("Attach File");
-	const [encodedFiles, setEncodedFiles] = React.useState({});
+	const [encodedFiles, setEncodedFiles] = React.useState([]);
 
 	const submit = e => {
 		//e.preventDefault();
 		const data = {
 			text: msg || false,
-			img: encodedFiles.src ? encodedFiles : false,
+			imgs: encodedFiles.length ? encodedFiles : false,
 			date: moment().format("DD/MM, HH:mm")
 		};
 		props.socket.emit("shareFile", data, props.conID);
 		setMsg("");
 		setFilename("Attach File");
-		setEncodedFiles({});
+		setEncodedFiles([]);
 	};
 
 	const onDrop = React.useCallback(async acceptedFiles => {
-		setEncodedFiles({});
-		//setEncodedFiles(acceptedFiles);
+		const newPromises = acceptedFiles.map(processFile);
+		const newFiles = await Promise.allSettled([...newPromises]);
+		const fles = newFiles.map(el => el.value);
+		setEncodedFiles(prev => [...prev, ...fles]);
 		setFilename(acceptedFiles[0].name);
-		const fileBase64 = await toBase64(acceptedFiles[0]);
-		const file = {
-			name: acceptedFiles[0].name,
-			src: fileBase64
-		};
-		setEncodedFiles(file);
 	}, []);
-	const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
-		accept: ["image/jpeg", "image/png", "image/gif", "image/*"],
-		maxSize: 100000000, // 100 mb
-		multiple: false,
-		onDrop
-	});
 
+	const { getRootProps, getInputProps } = useDropzone({ onDrop });
 	const handleInput = e => {
 		console.log(e.key);
 		if (e.key === "Enter" && e.ctrlKey === false) {
@@ -59,6 +59,9 @@ const InputArea = props => {
 	return (
 		<>
 			<div className="inputArea">
+				<span className="closeBtn clickable" onClick={props.switchPostingMode}>
+					[x]
+				</span>
 				<textarea
 					placeholder="Text goes here"
 					onKeyPress={handleInput}
@@ -83,6 +86,11 @@ const InputArea = props => {
 							<span>{filename}</span>
 						</div>
 					</button>
+					<div className="files">
+						{encodedFiles.map((file, idx) => {
+							return <p key={idx}>{file.name}</p>;
+						})}
+					</div>
 				</div>
 			</div>
 		</>

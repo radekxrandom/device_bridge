@@ -33,6 +33,7 @@ const App = () => {
 		const os = browserData[1].slice(1);
 
 		const urlID = window.location.href.slice(25);
+		console.log(urlID);
 		const conID = urlID.length ? urlID : localStorage.getItem("connectionID");
 		//const conID = urlID;
 		console.log(conID);
@@ -56,13 +57,13 @@ const App = () => {
 			if (!data) {
 				return;
 			}
-			console.log('con dev');
+			console.log("con dev");
 			const otherDevices = data.filter(el => el.id !== socket.id);
 			setConUsers(otherDevices);
 		});
 
 		socket.on("existingFiles", shared => {
-			console.log('files');
+			console.log("files");
 			setFiles(shared);
 		});
 
@@ -83,6 +84,28 @@ const App = () => {
 		socket.emit("removeFile", id, connection);
 	};
 
+	const resetConnection = () => {
+		socket.connect();
+		const userData = getUserData();
+		localStorage.removeItem("connectionID");
+		socket.emit("generateBridge", userData);
+	};
+
+	const deleteSession = async () => {
+		//e.preventDefault();
+		await socket.emit("deleteSession");
+		resetConnection();
+	};
+
+	socket.on("disconnectSockets", () => {
+		resetConnection();
+	});
+
+	const clearSharedHistory = e => {
+		e.preventDefault();
+		socket.emit("clearSharedHistory");
+	};
+
 	return (
 		<div>
 			{/*connection && !conUsers.length && (
@@ -91,11 +114,14 @@ const App = () => {
 				</DisconnectedViewContainer>
 			) */}
 			<ConnectedViewContainer
+				resetConnection={resetConnection}
 				connection={connection}
 				removeFile={removeFile}
 				sharedFiles={files}
 				connectedDevices={conUsers}
 				socket={socket}
+				deleteSession={deleteSession}
+				clearSharedHistory={clearSharedHistory}
 			/>
 			<div></div>
 		</div>

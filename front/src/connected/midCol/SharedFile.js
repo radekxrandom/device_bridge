@@ -14,7 +14,8 @@ const SharedFile = props => {
 					: (<span className='fileContent'>{props.text}</span>)} */}
 				{isUrl && <a href={props.text}>{props.text}</a>}
 				{!isUrl && <span className="fileContent">{props.text}</span>}
-				<img className="fileContent" src={props.img.src} />
+				{props.imgs &&
+					props.imgs.map(el => <img className="fileContent" src={el.src} />)}
 				<p className="ownerInfor">
 					{/* <span className="fileOwnerAdnotation">Metadata: </span> */}
 					<span className="fileOwner">{`Sent: ${props.date} `}</span>

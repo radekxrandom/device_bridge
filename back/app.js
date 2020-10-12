@@ -20,6 +20,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+console.log('rach pach');
 app.use((req, res, next) => {
   req.io = io;
   next();
@@ -80,7 +81,8 @@ io.on('connection', async (socket) => {
 
   socket.on('shareFile', (file, connectionID) => {
     console.log(connectionID);
-    const sender = connectedSockets[connectionID].find((el) => el.id === socket.id);
+    console.log(socket.room);
+    const sender = connectedSockets[socket.room].find((el) => el.id === socket.id);
     console.log(sender);
     const sharedFile = {
       file,
@@ -88,10 +90,10 @@ io.on('connection', async (socket) => {
       id: uuidv4(),
     };
     try {
-      things[connectionID] = [...things[connectionID], sharedFile];
+      things[socket.room] = [...things[socket.room], sharedFile];
       console.log('tried ok');
     } catch (err) {
-      things[connectionID] = [sharedFile];
+      things[socket.room] = [sharedFile];
       console.log('catch not ok');
     }
     try {
@@ -105,8 +107,34 @@ io.on('connection', async (socket) => {
   });
 
   socket.on('removeFile', (id, connectionID) => {
-    const filtered = things[connectionID].filter((el) => el.id !== id);
-    things[connectionID] = filtered;
+    const filtered = things[socket.room].filter((el) => el.id !== id);
+    things[socket.room] = filtered;
+    const thing = things[connectionID] || [];
+    socket.emit('existingFiles', thing);
+    console.log('removeFile');
+  });
+
+  socket.on('deleteSession', () => {
+    things[socket.room] = [];
+    socket.emit('existingFiles', []);
+    socket.broadcast.to(socket.room).emit('existingFiles', []);
+
+    connectedSockets[socket.room] = [];
+    // socket.emit('disconnectSockets');
+    socket.broadcast.to(socket.room).emit('disconnectSockets');
+    console.log('deleteSession');
+  });
+
+  socket.on('disconnectSockets', () => {
+    // socket.disconnect();
+    console.log('disconnectSockets');
+  });
+
+  socket.on('clearSharedHistory', () => {
+    things[socket.room] = [];
+    socket.emit('existingFiles', []);
+    socket.broadcast.to(socket.room).emit('existingFiles', []);
+    console.log('clearSharedHistory');
   });
 
   socket.on('disconnect', () => {

@@ -9,6 +9,17 @@ const ConnectionInfoContainer = props => {
 				<p className="qrAdnotation">SCAN TO CONNECT</p>
 				<QRCodeTop connection={props.connection} />
 				<p>{props.connection}</p>
+				<div className="ctrlBtns">
+					<button className="resetBtn" onClick={props.resetConnection}>
+						Disconnect
+					</button>
+					<button className="resetBtn" onClick={props.deleteSession}>
+						New session
+					</button>
+					<button className="resetBtn" onClick={props.clearSharedHistory}>
+						Clear
+					</button>
+				</div>
 			</div>
 			<div className="connList">
 				<p>Connected devices</p>

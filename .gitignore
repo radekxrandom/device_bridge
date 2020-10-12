@@ -1,7 +1,10 @@
-front/node_modules/* back/node_modules/* 
+front/node_modules/* back/node_modules/*
 /node_modules
 /.nyc_output
 /public
 /scraps
 /utils
 .env
+yarn.lock
+mockData/
+/.cert
