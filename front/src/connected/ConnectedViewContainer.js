@@ -1,6 +1,6 @@
 import React from "react";
 import SharedFilesContainer from "./midCol/SharedFilesContainer";
-import ConnectionInfoContainer from "./rightCol/ConnectionInfoContainer";
+import ConnectionInfoContainer from "./midCol/rightCol/ConnectionInfoContainer";
 import LeftContainer from "./leftCol/LeftContainer";
 
 const ConnectedViewContainer = props => {

@@ -1,6 +1,6 @@
 import React from "react";
 //import InputArea from "./InputArea";
-import ConnectedDeviceInfo from "../rightCol/ConnectedDeviceInfo";
+import ConnectedDeviceInfo from "../midCol/rightCol/ConnectedDeviceInfo";
 
 const LeftContainer = props => {
 	return (
