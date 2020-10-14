@@ -1,10 +1,11 @@
-front/node_modules/* back/node_modules/*
+/back/node_modules
 /node_modules
 /.nyc_output
-/public
+/front/public/
 /scraps
 /utils
 .env
 yarn.lock
 mockData/
 /.cert
+/front/node_modules
