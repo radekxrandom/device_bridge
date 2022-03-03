@@ -1,3 +1,5 @@
+### [Unmaintained, doesn't work. It's here for nostalgic reasons only]
+
 Device bridge - single page application that allows easy sharing of text and files between different devices (usually between the computer and some kind of a mobile device).
 
 ![sc](https://i.imgur.com/XSDsiqu.png)
